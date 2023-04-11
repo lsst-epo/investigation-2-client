@@ -15,17 +15,17 @@ const imageShape = PropTypes.shape({
 }).isRequired;
 
 export interface Image {
-  altText: string;
-  width: number;
-  height: number;
+  altText?: string;
+  width?: number;
+  height?: number;
   url: string;
-  url2x: string;
-  url3x: string;
-  thumb: string;
-  thumb2x: string;
-  className: string;
-  focalPointX: number;
-  focalPointY: number;
+  url2x?: string;
+  url3x?: string;
+  thumb?: string;
+  thumb2x?: string;
+  className?: string;
+  focalPointX?: number;
+  focalPointY?: number;
 }
 
 export default imageShape;

@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@castiron/style-mixins": "^1.0.6",
-    "@rubin-epo/epo-react-lib": "^1.1.2",
+    "@rubin-epo/epo-react-lib": "^1.1.4",
     "classnames": "^2.3.2",
     "focus-trap": "^7.3.1",
     "focus-visible": "^5.2.0",

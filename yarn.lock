@@ -1910,10 +1910,10 @@
     schema-utils "^3.0.0"
     source-map "^0.7.3"
 
-"@rubin-epo/epo-react-lib@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@rubin-epo/epo-react-lib/-/epo-react-lib-1.1.2.tgz#e72e68838fc3b6fc270bb3724fc6d4ecf2a4e4d8"
-  integrity sha512-3BOcyVi8x4HOMwwwVE3G8gEqAy2v5SU+y/OkXURlaNTguSvL6BPHOXm93Tp79IeJR9NvjYf9cWrOGW/gXHP+kg==
+"@rubin-epo/epo-react-lib@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@rubin-epo/epo-react-lib/-/epo-react-lib-1.1.4.tgz#68d4e1b90b80cbd73e0e73f4b58d006075742b30"
+  integrity sha512-mffozYNLN55dE1kCzQWozl7kUyGu2bS0CSgXvSfOkJcMiaxbUJgol2eVFDRy0BWiD/V/I/dBP/IJ/9/FZ3Fw+A==
   dependencies:
     flickity "^3.0.0"
     react-player "^2.11.0"
