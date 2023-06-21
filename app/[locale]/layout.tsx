@@ -9,6 +9,8 @@ import "@/styles/styles.scss";
 import { getGlobalData } from "@/api/global";
 import { GlobalDataProvider, GlobalData } from "@/contexts/GlobalData";
 import { Metadata } from "next";
+import Body from "@/global/Body";
+import Header from "@/global/Header";
 
 export interface RootLayoutParams {
   locale: string;
@@ -70,7 +72,10 @@ const RootLayout: (
           <StyledComponentsRegistry>
             <GlobalStyles includeFonts={false} />
             <GlobalDataProvider data={globalData}>
-              {children}
+              <Body>
+                <Header />
+                {children}
+              </Body>
             </GlobalDataProvider>
           </StyledComponentsRegistry>
         </UIDReset>

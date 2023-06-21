@@ -58,6 +58,7 @@
     "hoist-non-react-statics": "^3.3.2",
     "i18next": "^22.4.10",
     "i18next-resources-to-backend": "^1.1.4",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "next": "^13.4.6",
     "next-build-id": "^3.0.0",

@@ -1,8 +1,7 @@
 import { FunctionComponent } from "react";
-import LanguageSelect from "./LanguageSelect";
 
 const Header: FunctionComponent = () => {
-  return <LanguageSelect id="langSelect" />;
+  return <header>{/* <LanguageSelect id="langSelect" /> */}</header>;
 };
 
 Header.displayName = "Global.Header";

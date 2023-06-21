@@ -36,7 +36,8 @@
       "@/shapes/*": ["components/shapes/*"],
       "@/styles/*": ["theme/styles/*"],
       "@/svg/*": ["components/svg/*"],
-      "@/templates/*": ["components/templates/*"]
+      "@/templates/*": ["components/templates/*"],
+      "@/types/*": ["types/*"]
     },
     "incremental": true,
     "plugins": [

@@ -101,7 +101,7 @@ export async function getEntryDataByUri(uri, site = "default", previewToken) {
         }
       }
     `;
-  const data = await queryAPI(query, null, previewToken);
+  const data = await queryAPI({ query, previewToken });
   return data.entry;
 }
 

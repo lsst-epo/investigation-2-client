@@ -41,4 +41,7 @@ module.exports = {
       path.join(__dirname, "components"),
     ],
   },
+  experimental: {
+    serverActions: true,
+  },
 };

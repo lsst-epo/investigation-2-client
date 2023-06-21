@@ -1,7 +1,17 @@
-import { GraphQLClient } from "graphql-request";
+import { GraphQLClient, RequestDocument } from "graphql-request";
 
-export async function queryAPI(query, token, previewToken, variables = {}) {
-  let API_URL = process.env.NEXT_PUBLIC_API_URL;
+export async function queryAPI<T = any>({
+  query,
+  variables = {},
+  token,
+  previewToken,
+}: {
+  query: RequestDocument;
+  variables?: object;
+  token?: string | null;
+  previewToken?: string;
+}): Promise<T> {
+  let API_URL = process.env.NEXT_PUBLIC_API_URL as string;
   // Check to see if the environment variable DOCKER_GATEWAY_IP is populated, if so
   // then the URL should be constructed for a Docker static build
   if (
@@ -13,14 +23,11 @@ export async function queryAPI(query, token, previewToken, variables = {}) {
     API_URL = `http://${process.env.DOCKER_GATEWAY_IP}:${process.env.DOCKER_GATEWAY_PORT}/api`;
   }
 
-  const isPreview = previewToken && previewToken !== "";
-  const url = isPreview ? `${API_URL}?token=${previewToken}` : API_URL;
+  const url = previewToken ? `${API_URL}?token=${previewToken}` : API_URL;
   const client = new GraphQLClient(url);
-  const headers = !token
-    ? {}
-    : {
-        authorization: `JWT ${token}`,
-      };
+  const headers = {
+    ...(token && { authorization: `JWT ${token}` }),
+  };
 
   return client
     .request(query, variables, headers)
