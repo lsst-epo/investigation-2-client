@@ -1,6 +1,9 @@
 import { RootLayoutParams } from "./layout";
 import { getEntryDataByUri } from "@/api/entry";
 import HomePageTemplate from "@/templates/HomePage";
+import AuthDialogs from "@/components/auth/AuthDialogs/AuthDialogs";
+import SignOut from "@/components/auth/buttons/SignOut";
+import { getAuthCookies, getUserFromJwt } from "@/components/auth/helpers";
 
 const CRAFT_HOMEPAGE_URI = "__home__";
 
@@ -27,7 +30,22 @@ const HomePage: (props: HomePageProps) => Promise<JSX.Element> = async ({
     previewData?.previewToken
   );
 
-  return <HomePageTemplate data={entryData} />;
+  const { jwt, status } = getAuthCookies();
+  const user = getUserFromJwt(jwt);
+
+  return (
+    <HomePageTemplate data={entryData}>
+      {user && (
+        <>
+          <p>User: {JSON.stringify(user)}</p>
+          {status && <p>Status: {status}</p>}
+          {/* @ts-expect-error Server Component */}
+          <SignOut redirectTo={"/"} />
+        </>
+      )}
+      <AuthDialogs isAuthenticated={!!jwt} />
+    </HomePageTemplate>
+  );
 };
 
 export default HomePage;

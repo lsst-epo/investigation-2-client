@@ -1,7 +1,8 @@
 import { redirect } from "next/navigation";
-import { deleteAuthCookies } from "../helpers";
+import Button from "@rubin-epo/epo-react-lib/Button";
+import { deleteAuthCookies } from "@/components/auth/helpers";
 
-export default function SignOut({ redirectTo }: { redirectTo: string }) {
+export default async function SignOut({ redirectTo }: { redirectTo: string }) {
   async function signOut() {
     "use server";
 
@@ -15,7 +16,7 @@ export default function SignOut({ redirectTo }: { redirectTo: string }) {
       // @ts-ignore
       action={signOut}
     >
-      <button>Sign out</button>
+      <Button>Sign out</Button>
     </form>
   );
 }

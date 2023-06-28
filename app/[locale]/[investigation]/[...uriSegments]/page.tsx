@@ -3,7 +3,7 @@ import { getEntryDataByUri } from "@/api/entry";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { getAuthCookies, getUserFromJwt } from "@/components/auth/helpers";
-import SignOut from "@/components/auth/SignOut";
+import SignOut from "@/components/auth/buttons/SignOut";
 
 async function getEntryData(uri: string, site: string, previewToken: any) {
   return await getEntryDataByUri(uri, site, previewToken);
@@ -49,7 +49,7 @@ const UriSegments: (props: UriSegmentsProps) => Promise<JSX.Element> = async ({
 
   // return <Template data={entryData} />;
 
-  const { jwt, refreshTokenExpiresAt } = getAuthCookies();
+  const { jwt, refreshTokenExpiresAt, status } = getAuthCookies();
 
   // if no JWT or stored refresh token has expired, redirect to investigation landing page
   if (!jwt || !refreshTokenExpiresAt || Date.now() > refreshTokenExpiresAt)
@@ -61,6 +61,8 @@ const UriSegments: (props: UriSegmentsProps) => Promise<JSX.Element> = async ({
     <>
       <h1>This is an authorized route</h1>
       <p>User: {JSON.stringify(user)}</p>
+      {status && <p>Status: {status}</p>}
+      {/* @ts-expect-error Server Component */}
       <SignOut redirectTo={`/${investigation}`} />
     </>
   );

@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@castiron/style-mixins": "^1.0.6",
-    "@rubin-epo/epo-react-lib": "1.3.0-alpha.7",
+    "@rubin-epo/epo-react-lib": "2.0.0-beta.4",
     "@rubin-epo/epo-widget-lib": "^0.2.1",
     "accept-language-parser": "^1.5.0",
     "classnames": "^2.3.2",
@@ -70,7 +70,7 @@
     "react-is": "^18.2.0",
     "react-uid": "^2.3.2",
     "screenfull": "^6.0.2",
-    "styled-components": "6.0.0-rc.2",
+    "styled-components": "^6.0.2",
     "swr": "1.3.0",
     "universal-cookie": "^4.0.4",
     "use-resize-observer": "^9.1.0",

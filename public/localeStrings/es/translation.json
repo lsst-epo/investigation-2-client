@@ -17,5 +17,16 @@
     "send": "Enviar",
     "sending": "Enviando…",
     "reset": "Restablecer el formulario"
+  },
+  "nav": {
+    "close": "Close"
+  },
+  "auth": {
+    "log_in": "Log in",
+    "log_in_to_continue": "Log in to continue",
+    "log_out": "Log out",
+    "logged_in_as": "Logged in as {{name}}",
+    "logged_out": "Logged out",
+    "sign_up": "Create an account"
   }
 }
