@@ -17,3 +17,5 @@ export type AuthResponse = {
 export type ErrorResponse = {
   message: string;
 }[];
+
+export type PendingGroup = "students" | "educators";

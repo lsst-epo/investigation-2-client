@@ -7,6 +7,7 @@ import { Container } from "@rubin-epo/epo-react-lib";
 
 export default function HomePage(props: {
   data: FragmentType<typeof Fragment>;
+  children?: React.ReactNode;
 }) {
   const data = useFragment(Fragment, props.data);
 
@@ -16,6 +17,7 @@ export default function HomePage(props: {
     <Body>
       <Container>
         <h1>{data.title}</h1>
+        {props.children}
         {data.contentBlocks?.map(
           (block, i) => block && <ContentBlockFactory key={i} data={block} />
         )}

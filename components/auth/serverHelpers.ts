@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import jwtDecode from "jwt-decode";
 import type { AuthResponse, Token } from "@/types/auth";
 
-const COOKIE_OPTIONS = {
+export const COOKIE_OPTIONS = {
   httpOnly: true,
   path: "/",
   sameSite: true,
@@ -13,6 +13,7 @@ export function getAuthCookies() {
   const jwtExpiresAt = cookies().get("jwtExpiresAt")?.value;
   const refreshToken = cookies().get("refreshToken")?.value;
   const refreshTokenExpiresAt = cookies().get("refreshTokenExpiresAt")?.value;
+  const status = cookies().get("status")?.value;
 
   return {
     jwt,
@@ -21,11 +22,12 @@ export function getAuthCookies() {
     refreshTokenExpiresAt: refreshTokenExpiresAt
       ? Number(refreshTokenExpiresAt)
       : undefined,
+    status,
   };
 }
 
 export function setAuthCookies(data: AuthResponse) {
-  const { jwt, jwtExpiresAt, refreshToken, refreshTokenExpiresAt } = data;
+  const { jwt, jwtExpiresAt, refreshToken, refreshTokenExpiresAt, user } = data;
   cookies().set("jwt", jwt, COOKIE_OPTIONS);
   cookies().set("jwtExpiresAt", String(jwtExpiresAt), COOKIE_OPTIONS);
   cookies().set("refreshToken", refreshToken, COOKIE_OPTIONS);
@@ -34,6 +36,9 @@ export function setAuthCookies(data: AuthResponse) {
     String(refreshTokenExpiresAt),
     COOKIE_OPTIONS
   );
+  if (user.status) {
+    cookies().set("status", user.status, COOKIE_OPTIONS);
+  }
 }
 
 export function deleteAuthCookies() {
@@ -41,6 +46,7 @@ export function deleteAuthCookies() {
   cookies().set("jwtExpiresAt", "", COOKIE_OPTIONS);
   cookies().set("refreshToken", "", COOKIE_OPTIONS);
   cookies().set("refreshTokenExpiresAt", "", COOKIE_OPTIONS);
+  cookies().set("status", "", COOKIE_OPTIONS);
 }
 
 export function getUserFromJwt(jwt?: Token) {

@@ -3,7 +3,7 @@ import { queryAPI } from "@/lib/fetch";
 import type { AuthResponse, ErrorResponse } from "@/types/auth";
 
 // https://graphql-authentication.jamesedmonston.co.uk/usage/authentication#register
-export default async function registerStudent({
+export default async function registerStudents({
   email,
   password,
   firstName,

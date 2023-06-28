@@ -1,9 +1,13 @@
 import { FunctionComponent } from "react";
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { InvestigationLandingProps } from "./layout";
-import SignIn from "@/components/auth/SignIn";
-import SignUp from "@/components/auth/SignUp";
-import { getAuthCookies } from "@/components/auth/helpers";
+import AuthDialogs from "@/components/auth/AuthDialogs";
+import SignOut from "@/components/auth/buttons/SignOut";
+import {
+  getAuthCookies,
+  getUserFromJwt,
+} from "@/components/auth/serverHelpers";
+import Link from "next/link";
 
 const MockInvestigations: { [key: string]: string } = {
   "coloring-the-universe": "Coloring the Universe",
@@ -12,23 +16,32 @@ const MockInvestigations: { [key: string]: string } = {
 const InvestigationLanding: FunctionComponent<InvestigationLandingProps> = ({
   params: { investigation },
 }) => {
-  const { jwt } = getAuthCookies();
-
-  if (jwt) redirect(`/${investigation}/first-page`);
-
   const title = MockInvestigations[investigation];
 
   if (!title) {
     notFound();
   }
 
+  const { jwt, status } = getAuthCookies();
+  const user = getUserFromJwt(jwt);
+
+  // if (jwt) redirect(`/${investigation}/first-page`);
+
   return (
     <>
       <h1>{title}</h1>
-      <div style={{ display: "flex", gap: "1rem" }}>
-        <SignIn redirectTo={`/${investigation}/first-page`} />
-        <SignUp redirectTo={`/${investigation}/first-page`} />
-      </div>
+      {user && (
+        <>
+          <p>User: {JSON.stringify(user)}</p>
+          {status && <p>Status: {status}</p>}
+          <Link href={`/${investigation}/first-child`}>
+            Start investigation
+          </Link>
+          {/* @ts-expect-error Server Component */}
+          <SignOut redirectTo={`/${investigation}`} />
+        </>
+      )}
+      <AuthDialogs isAuthenticated={!!jwt} />
     </>
   );
 };

@@ -3,7 +3,7 @@ import { queryAPI } from "@/lib/fetch";
 import type { AuthResponse, ErrorResponse } from "@/types/auth";
 
 // https://graphql-authentication.jamesedmonston.co.uk/usage/authentication#register
-export default async function registerEducator({
+export default async function registerEducators({
   email,
   password,
   firstName,
@@ -19,21 +19,26 @@ export default async function registerEducator({
   token?: string | null;
 }) {
   const query = gql`
-    mutation RegisterEducators($email: String!, $password: String!, $fullName: String) {
+    mutation RegisterEducators(
+      $email: String!
+      $password: String!
+      $fullName: String
+    ) {
       registerEducators(
         email: $email
         password: $password
-        fullName: $fullName {  
-        user {
-          status
-          # ... on User {
-          #   requestDeletion
-          # }
-        }
+        fullName: $fullName
+      ) {
         jwt
         jwtExpiresAt
         refreshToken
         refreshTokenExpiresAt
+        user {
+          status
+          # ... on User {
+          # requestDeletion
+          # }
+        }
       }
     }
   `;

@@ -48,7 +48,8 @@
   },
   "dependencies": {
     "@castiron/style-mixins": "^1.0.6",
-    "@rubin-epo/epo-react-lib": "^2.0.0",
+    "@react-oauth/google": "^0.11.0",
+    "@rubin-epo/epo-react-lib": "2.0.0",
     "@rubin-epo/epo-widget-lib": "^0.4.3",
     "@urql/core": "^4.0.10",
     "accept-language-parser": "^1.5.0",

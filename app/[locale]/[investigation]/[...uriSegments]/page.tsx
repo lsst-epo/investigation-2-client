@@ -2,8 +2,11 @@ import { createClient, fetchExchange } from "@urql/core";
 import { graphql } from "@/gql";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getAuthCookies, getUserFromJwt } from "@/components/auth/helpers";
-import SignOut from "@/components/auth/SignOut";
+import {
+  getAuthCookies,
+  getUserFromJwt,
+} from "@/components/auth/serverHelpers";
+import SignOut from "@/components/auth/buttons/SignOut";
 
 export const revalidate = 60;
 
@@ -63,7 +66,7 @@ const UriSegments: (props: {
 
   // return data?.entry ? <TemplateFactory data={data.entry} /> : notFound();
 
-  const { jwt, refreshTokenExpiresAt } = getAuthCookies();
+  const { jwt, refreshTokenExpiresAt, status } = getAuthCookies();
 
   // if no JWT or stored refresh token has expired, redirect to investigation landing page
   if (!jwt || !refreshTokenExpiresAt || Date.now() > refreshTokenExpiresAt)
@@ -75,6 +78,8 @@ const UriSegments: (props: {
     <>
       <h1>This is an authorized route</h1>
       <p>User: {JSON.stringify(user)}</p>
+      {status && <p>Status: {status}</p>}
+      {/* @ts-expect-error Server Component */}
       <SignOut redirectTo={`/${investigation}`} />
     </>
   );

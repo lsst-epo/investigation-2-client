@@ -3,6 +3,12 @@ import { graphql } from "@/gql";
 import { RootLayoutParams } from "./layout";
 import HomePageTemplate from "@/templates/HomePage";
 import { notFound } from "next/navigation";
+import AuthDialogs from "@/components/auth/AuthDialogs/AuthDialogs";
+import SignOut from "@/components/auth/buttons/SignOut";
+import {
+  getAuthCookies,
+  getUserFromJwt,
+} from "@/components/auth/serverHelpers";
 
 const CRAFT_HOMEPAGE_URI = "__home__";
 
@@ -34,8 +40,21 @@ const HomePage: (props: HomePageProps) => Promise<JSX.Element> = async ({
       return result.data;
     });
 
+  const { jwt, status } = getAuthCookies();
+  const user = getUserFromJwt(jwt);
+
   return data?.entry?.__typename === "homepage_homepage_Entry" ? (
-    <HomePageTemplate data={data.entry} />
+    <HomePageTemplate data={data.entry}>
+      {user && (
+        <>
+          <p>User: {JSON.stringify(user)}</p>
+          {status && <p>Status: {status}</p>}
+          {/* @ts-expect-error Server Component */}
+          <SignOut redirectTo={"/"} />
+        </>
+      )}
+      <AuthDialogs isAuthenticated={!!jwt} />
+    </HomePageTemplate>
   ) : (
     notFound()
   );
