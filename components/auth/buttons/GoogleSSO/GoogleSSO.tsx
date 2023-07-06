@@ -1,31 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { Button } from "@rubin-epo/epo-react-lib";
-import { useTranslation } from "@/lib/i18n/client";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import Button from "./Button";
+
+const GOOGLE_APP_ID = process.env.NEXT_PUBLIC_GOOGLE_APP_ID;
 
 export default function GoogleSSO({ onError }: { onError: () => void }) {
-  const [status, setStatus] = useState<"loading" | null>(null);
-
-  const { t } = useTranslation();
+  if (!GOOGLE_APP_ID) return null;
 
   return (
-    <Button
-      onClick={async () => {
-        setStatus("loading");
-        try {
-          // const oauthUrl = await getOauthUrl();
-          // window.open(oauthUrl, "_self");
-        } catch (error) {
-          onError();
-        }
-        setStatus(null);
-      }}
-      styleAs="tertiary"
-    >
-      {status === "loading"
-        ? t("sign_in.redirecting_google")
-        : t("sign_in.continue_with_google")}
-    </Button>
+    <GoogleOAuthProvider clientId={GOOGLE_APP_ID}>
+      <Button onError={onError} />
+    </GoogleOAuthProvider>
   );
 }

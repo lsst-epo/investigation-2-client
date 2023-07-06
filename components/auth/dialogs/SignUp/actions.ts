@@ -1,7 +1,7 @@
 "use server";
 
 import { registerEducators, registerStudents } from "@/api/auth";
-import { setAuthCookies } from "@/components/auth/helpers";
+import { setAuthCookies } from "@/components/auth/serverHelpers";
 
 export async function registerEducator(formData: FormData) {
   const formDataObj = Object.fromEntries(formData);

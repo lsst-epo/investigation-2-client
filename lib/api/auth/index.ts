@@ -1,7 +1,8 @@
 export { default as activate } from "./activate";
 export { default as authenticate } from "./authenticate";
 export { default as authenticateFacebook } from "./authenticateFacebook";
-export { default as authenticateGoogle } from "./authenticateGoogle";
+export { default as authenticateEducatorsWithGoogle } from "./authenticateEducatorsWithGoogle";
+export { default as authenticateStudentsWithGoogle } from "./authenticateStudentsWithGoogle";
 export { default as forgottenPassword } from "./forgottenPassword";
 export { default as getFacebookOAuthUrl } from "./getFacebookOAuthUrl";
 export { default as getUser } from "./getUser";

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { authenticate } from "@/api/auth";
-import { setAuthCookies } from "@/components/auth/helpers";
+import { setAuthCookies } from "@/components/auth/serverHelpers";
 
 export async function signIn(formData: FormData, pathToRevalidate: string) {
   const formDataObj = Object.fromEntries(formData);

@@ -2,7 +2,10 @@ import { UriSegmentsProps } from "./layout";
 import { getEntryDataByUri } from "@/api/entry";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { getAuthCookies, getUserFromJwt } from "@/components/auth/helpers";
+import {
+  getAuthCookies,
+  getUserFromJwt,
+} from "@/components/auth/serverHelpers";
 import SignOut from "@/components/auth/buttons/SignOut";
 
 async function getEntryData(uri: string, site: string, previewToken: any) {

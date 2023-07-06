@@ -47,14 +47,12 @@ export default function SignUp() {
           try {
             if (pendingGroup === "educators") {
               const data = await registerEducator(formData);
-              setStatus(null);
               if (data.registerEducators) {
                 openModal("statusPending");
               }
             } else {
               const data = await registerStudent(formData);
               if (data.registerStudents) {
-                setStatus(null);
                 openModal("statusPending");
               }
             }
@@ -63,6 +61,8 @@ export default function SignUp() {
               setStatus("error");
             }
           }
+
+          setStatus(null);
         }}
       >
         <div>

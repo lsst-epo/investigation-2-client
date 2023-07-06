@@ -3,7 +3,10 @@ import { getEntryDataByUri } from "@/api/entry";
 import HomePageTemplate from "@/templates/HomePage";
 import AuthDialogs from "@/components/auth/AuthDialogs/AuthDialogs";
 import SignOut from "@/components/auth/buttons/SignOut";
-import { getAuthCookies, getUserFromJwt } from "@/components/auth/helpers";
+import {
+  getAuthCookies,
+  getUserFromJwt,
+} from "@/components/auth/serverHelpers";
 
 const CRAFT_HOMEPAGE_URI = "__home__";
 

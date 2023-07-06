@@ -21,7 +21,11 @@ export default function SelectProvider() {
       open={active === "selectProvider"}
       onClose={closeModal}
     >
-      <AuthButtons.GoogleSSO />
+      <AuthButtons.GoogleSSO
+        onError={() =>
+          setOutput(t("sign_in.error_message", { context: "google" }))
+        }
+      />
       <AuthButtons.FacebookSSO
         onError={() =>
           setOutput(t("sign_in.error_message", { context: "facebook" }))
