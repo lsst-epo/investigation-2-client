@@ -65,6 +65,7 @@ export default HomePage;
 const Query = graphql(`
   query HomepageQuery($site: [String], $uri: [String]) {
     entry(site: $site, uri: $uri) {
+      __typename
       ...HomepageTemplate
     }
   }

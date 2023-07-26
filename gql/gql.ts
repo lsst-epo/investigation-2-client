@@ -16,7 +16,7 @@ const documents = {
     "\n  query UriSegmentsMetadata($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      title\n    }\n  }\n": types.UriSegmentsMetadataDocument,
     "\n  query UriSegmentsQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      ...TemplateFactory\n    }\n  }\n": types.UriSegmentsQueryDocument,
     "\n  query GlobalsQuery($site: [String], $section: [String]) {\n    headerNavItems: entries(section: $section, site: $site, level: 1) {\n      id\n      title\n      uri\n      children {\n        id\n        title\n        uri\n      }\n    }\n    siteInfo: globalSet(site: $site, handle: \"siteInfo\") {\n      ... on siteInfo_GlobalSet {\n        language\n        name\n        handle\n        siteTitle\n        siteDescription\n      }\n    }\n    categories(site: $site) {\n      id\n      slug\n      groupHandle\n      title\n    }\n  }\n": types.GlobalsQueryDocument,
-    "\n  query HomepageQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      ...HomepageTemplate\n    }\n  }\n": types.HomepageQueryDocument,
+    "\n  query HomepageQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      __typename\n      ...HomepageTemplate\n    }\n  }\n": types.HomepageQueryDocument,
     "\n  fragment TextContentBlock on contentBlocks_text_BlockType {\n    text\n  }\n": types.TextContentBlockFragmentDoc,
     "\n  fragment ContentBlockFactory on contentBlocks_NeoField {\n    __typename\n    ...TextContentBlock\n  }\n": types.ContentBlockFactoryFragmentDoc,
     "\n  fragment SimpleContentBlockFactory on contentBlocks_NeoField {\n    __typename\n    ...TextContentBlock\n  }\n": types.SimpleContentBlockFactoryFragmentDoc,
@@ -54,7 +54,7 @@ export function graphql(source: "\n  query GlobalsQuery($site: [String], $sectio
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query HomepageQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      ...HomepageTemplate\n    }\n  }\n"): (typeof documents)["\n  query HomepageQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      ...HomepageTemplate\n    }\n  }\n"];
+export function graphql(source: "\n  query HomepageQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      __typename\n      ...HomepageTemplate\n    }\n  }\n"): (typeof documents)["\n  query HomepageQuery($site: [String], $uri: [String]) {\n    entry(site: $site, uri: $uri) {\n      __typename\n      ...HomepageTemplate\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
