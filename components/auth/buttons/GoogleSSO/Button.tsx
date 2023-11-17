@@ -3,7 +3,7 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { Button } from "@rubin-epo/epo-react-lib";
 import { useTranslation } from "react-i18next";
-import { useAuthDialogManager } from "@/components/auth/AuthDialogManagerContext";
+import { useAuthDialogManager } from "@/contexts/AuthDialogManagerContext";
 import { usePathToRevalidate } from "@/components/auth/clientHelpers";
 import { authenticateEducator, authenticateStudent } from "./actions";
 import type { GoogleCredentialResponse } from "@react-oauth/google";
@@ -27,7 +27,6 @@ export default function SSOButton({
   }
 
   async function handleSuccess(credentialResponse: GoogleCredentialResponse) {
-
     try {
       if (!credentialResponse.credential) return handleError();
 
@@ -48,10 +47,7 @@ export default function SSOButton({
   }
 
   return (
-    <Button
-      onClick={() => login()}
-      styleAs="tertiary"
-    >
+    <Button onClick={() => login()} styleAs="tertiary">
       {t("sign_in.continue_with_google")}
     </Button>
   );

@@ -10,6 +10,7 @@ import * as Modal from "@/layout/Modal";
 
 interface RoutedModalProps {
   title?: string;
+  onDismiss?: () => void;
 }
 
 /**

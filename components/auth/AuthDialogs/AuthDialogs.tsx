@@ -1,6 +1,6 @@
 "use client";
 
-import { AuthDialogManagerProvider } from "@/components/auth/AuthDialogManagerContext";
+import { AuthDialogManagerProvider } from "@/contexts/AuthDialogManagerContext";
 import Button from "@/components/auth/buttons";
 import Dialog from "@/components/auth/dialogs";
 

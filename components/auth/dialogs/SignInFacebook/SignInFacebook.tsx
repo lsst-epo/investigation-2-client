@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { BasicModal, Button } from "@rubin-epo/epo-react-lib";
-import { useAuthDialogManager } from "@/components/auth/AuthDialogManagerContext";
+import { useAuthDialogManager } from "@/contexts/AuthDialogManagerContext";
 import { useTranslation } from "react-i18next";
 import { authenticateEducator, authenticateStudent } from "./actions";
 import { usePathToRevalidate } from "../../clientHelpers";

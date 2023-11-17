@@ -47,6 +47,7 @@ const InvestigationLandingLayout: (
   modal,
   params: { locale, investigation },
 }) => {
+  console.log("InvestigationLayout");
   const site = locale === "en" ? "default" : locale;
 
   const { data: investigationData } = await queryAPI({

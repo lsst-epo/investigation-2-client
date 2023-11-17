@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@rubin-epo/epo-react-lib";
-import { useAuthDialogManager } from "@/components/auth/AuthDialogManagerContext";
+import { useAuthDialogManager } from "@/contexts/AuthDialogManagerContext";
 import { useTranslation } from "react-i18next";
 
 export default function SignIn() {

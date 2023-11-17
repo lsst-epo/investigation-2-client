@@ -19,10 +19,11 @@ export type ActiveDialog =
 
 type AuthDialogManager = {
   active: ActiveDialog;
-  pendingGroup: PendingGroup;
+  pendingGroup?: PendingGroup;
   openModal: (name: ActiveDialog) => void;
   closeModal: () => void;
   setPendingGroup: (role: PendingGroup) => void;
+  returnToUri: string | null;
 };
 
 const AuthDialogManagerContext = createContext<AuthDialogManager | null>(null);
@@ -44,10 +45,13 @@ function AuthDialogManagerProvider({
   children: React.ReactNode;
 }) {
   const searchParams = useSearchParams();
+  const [returnToUri] = useState<string | null>(
+    searchParams?.get("returnTo") || null
+  );
   const [active, setActive] = useState<ActiveDialog>(
     getInitActive(searchParams)
   );
-  const [pendingGroup, setPendingGroup] = useState<PendingGroup>("students");
+  const [pendingGroup, setPendingGroup] = useState<PendingGroup>();
 
   return (
     <AuthDialogManagerContext.Provider
@@ -57,6 +61,7 @@ function AuthDialogManagerProvider({
         openModal: (name: ActiveDialog) => setActive(name),
         closeModal: () => setActive(null),
         setPendingGroup,
+        returnToUri,
       }}
     >
       {children}

@@ -33,6 +33,7 @@ module.exports = {
   experimental: {
     isrMemoryCacheSize: 0,
     forceSwcTransforms: true,
+    serverActions: true,
   },
   swcMinify: true,
   compiler: {

@@ -1,9 +1,10 @@
 "use client";
 
 import { Button } from "@rubin-epo/epo-react-lib";
-import { useAuthDialogManager } from "@/components/auth/AuthDialogManagerContext";
+import { useAuthDialogManager } from "@/contexts/AuthDialogManagerContext";
 import { useTranslation } from "react-i18next";
 import * as Styled from "./styles";
+import Link from "next/link";
 
 export default function SignIn() {
   const { t } = useTranslation();
@@ -12,11 +13,10 @@ export default function SignIn() {
   return (
     <>
       <Button
+        as={Link}
         className="sign-in"
         styleAs="educator"
-        onClick={() => {
-          openModal("signIn");
-        }}
+        href="auth/login"
       >
         {t("auth.log_in_to_continue")}
       </Button>

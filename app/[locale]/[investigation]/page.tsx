@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { graphql } from "@/gql/public-schema";
+import Link from "next/link";
 import { InvestigationLandingProps } from "./layout";
-import AuthDialogs from "@/components/auth/AuthDialogs";
 import SignOut from "@/components/auth/buttons/SignOut";
+import Button from "@rubin-epo/epo-react-lib/Button";
 import {
   getAuthCookies,
   getUserFromJwt,
@@ -45,7 +46,10 @@ const InvestigationLanding: (
       investigation={investigation}
       site={site}
     >
-      <AuthDialogs isAuthenticated={!!craftToken} />
+      {/* <AuthDialogs isAuthenticated={!!craftToken} /> */}
+      <Button as={Link} href={`/auth/login?returnTo=${investigation}`}>
+        Log in
+      </Button>
       {user && (
         <>
           <p>User: {JSON.stringify(user)}</p>

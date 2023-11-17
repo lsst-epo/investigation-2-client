@@ -90,6 +90,7 @@ const RootLayout: (
   params: { locale = fallbackLng },
   children,
 }) => {
+  console.log("RootLayout");
   const globalData = await getGlobals(locale);
 
   return (
