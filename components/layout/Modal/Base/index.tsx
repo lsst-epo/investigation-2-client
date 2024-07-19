@@ -22,8 +22,12 @@ const BaseModal = forwardRef<HTMLDivElement, PropsWithChildren<BaseModalProps>>(
 
     return (
       <Styled.Dialog data-modal-open={isOpen} ref={ref}>
-        <Styled.Backdrop open={isOpen} />
-        <div role={isOpen ? "dialog" : "generic"} aria-modal={isOpen} id={id}>
+        <Styled.Backdrop data-modal-open={isOpen} />
+        <div
+          role={isOpen ? "dialog" : "generic"}
+          aria-modal={isOpen ? true : undefined}
+          id={id}
+        >
           {children}
         </div>
       </Styled.Dialog>

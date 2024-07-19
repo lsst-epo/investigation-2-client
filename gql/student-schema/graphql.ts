@@ -5199,6 +5199,8 @@ export type ContentBlocks_Image_BlockType = ElementInterface & NeoBlockInterface
   layout?: Maybe<Scalars['String']['output']>;
   /** The Neo block’s level. */
   level?: Maybe<Scalars['Int']['output']>;
+  /** Canto Dam Asset field */
+  mobileImage?: Maybe<Array<Maybe<CantoDamAssetInterface>>>;
   /** The ID of the primary owner of the Neo block. */
   primaryOwnerId?: Maybe<Scalars['Int']['output']>;
   /** The element’s search score, if the `search` parameter was used when querying for the element. */
@@ -5259,6 +5261,28 @@ export type ContentBlocks_Image_BlockTypeImageArgs = {
 
 export type ContentBlocks_Image_BlockTypeLayoutArgs = {
   label?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+
+export type ContentBlocks_Image_BlockTypeMobileImageArgs = {
+  except?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+  first?: InputMaybe<Scalars['Boolean']['input']>;
+  forPage?: InputMaybe<ForPageInput>;
+  last?: InputMaybe<Scalars['Boolean']['input']>;
+  nth?: InputMaybe<Scalars['Int']['input']>;
+  random?: InputMaybe<Scalars['Int']['input']>;
+  reverse?: InputMaybe<Scalars['Boolean']['input']>;
+  shuffle?: InputMaybe<Scalars['Int']['input']>;
+  skip?: InputMaybe<Scalars['Int']['input']>;
+  sortBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sortByDesc?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  where?: InputMaybe<WhereFiltersInput>;
+  whereBetween?: InputMaybe<WhereBetweenFiltersInput>;
+  whereIn?: InputMaybe<WhereInFiltersInput>;
+  whereNotBetween?: InputMaybe<WhereNotBetweenFiltersInput>;
+  whereNotIn?: InputMaybe<WhereNotInFiltersInput>;
+  whereNotNull?: InputMaybe<Scalars['String']['input']>;
+  whereNull?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ContentBlocks_MagnitudeScatterPlot_BlockType = ElementInterface & NeoBlockInterface & {

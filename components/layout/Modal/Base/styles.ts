@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
 export const Dialog = styled.div`
   container-type: inline-size;
@@ -27,20 +27,16 @@ export const Dialog = styled.div`
   }
 `;
 
-export const Backdrop = styled.div<{ open: boolean }>`
+export const Backdrop = styled.div`
   grid-column: 2;
+  visibility: hidden;
   z-index: -1;
 
-  ${({ open }) =>
-    open
-      ? css`
-          background-color: var(--neutral95, #1f2121);
-          visibility: visible;
-          width: 100%;
-          height: 100%;
-          position: absolute;
-        `
-      : css`
-          visibility: hidden;
-        `}
+  &[data-modal-open="true"] {
+    background-color: var(--neutral95, #1f2121);
+    visibility: visible;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
 `;

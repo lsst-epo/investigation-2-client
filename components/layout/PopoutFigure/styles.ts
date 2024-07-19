@@ -38,8 +38,6 @@ export const Figure = styled(BaseFigure)`
   }
 `;
 
-export const Image = styled.img``;
-
 export const ExpandContract = styled(BaseExpandContract)`
   --expand-contract-offset: calc(var(--content-gap) * 1.25);
 

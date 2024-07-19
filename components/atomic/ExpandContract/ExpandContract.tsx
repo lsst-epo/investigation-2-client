@@ -1,6 +1,6 @@
 import { IconComposer } from "@rubin-epo/epo-react-lib";
 import * as Styled from "./styles";
-import { FunctionComponent, MouseEventHandler } from "react";
+import { forwardRef, MouseEventHandler } from "react";
 
 interface ExpandContractProps {
   isOpen?: boolean;
@@ -9,23 +9,21 @@ interface ExpandContractProps {
   className?: string;
 }
 
-const ExpandContract: FunctionComponent<ExpandContractProps> = ({
-  isOpen,
-  onToggle,
-  controlsId,
-  className,
-}) => {
-  return (
-    <Styled.Button
-      onClick={onToggle}
-      aria-expanded={isOpen}
-      aria-controls={controlsId}
-      className={className}
-    >
-      <IconComposer size={16} icon={isOpen ? "close" : "expand"} />
-    </Styled.Button>
-  );
-};
+const ExpandContract = forwardRef<HTMLButtonElement, ExpandContractProps>(
+  ({ isOpen, onToggle, controlsId, className }, ref) => {
+    return (
+      <Styled.Button
+        ref={ref}
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={controlsId}
+        className={className}
+      >
+        <IconComposer size={16} icon={isOpen ? "close" : "expand"} />
+      </Styled.Button>
+    );
+  }
+);
 
 ExpandContract.displayName = "Atomic.ExpandContract";
 

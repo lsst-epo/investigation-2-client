@@ -3,8 +3,8 @@ import ExpandContract from "@/atomic/ExpandContract/ExpandContract";
 
 export const Close = styled(ExpandContract)`
   position: absolute !important;
-  right: calc(var(--PADDING_SMALL) / 1.5);
-  top: calc(var(--PADDING_SMALL) / 1.5);
+  right: var(--content-gap, calc(var(--PADDING_SMALL) / 1.5));
+  top: var(--content-gap, calc(var(--PADDING_SMALL) / 1.5));
   z-index: 1;
 `;
 

@@ -26,35 +26,45 @@ const responsiveCantoSrc = (
   originalUrl: string,
   width: number
 ) => {
-  const eligibleSizes = ValidCantoSizes.filter((size) => size < width);
-  const srcset = eligibleSizes.map(
-    (size) => `${resizeCantoImage(previewUrl, size)} ${size}w`
+  const eligibleSizes: Array<number> = ValidCantoSizes.filter(
+    (size) => size < width
   );
 
-  srcset.push(`${originalUrl} ${width}w`);
+  const srcSet = eligibleSizes.map((size) => {
+    return {
+      src: resizeCantoImage(previewUrl, size),
+      size,
+    };
+  });
 
-  const sizes = eligibleSizes.map((size) => {
-    return `(max-width: ${size}px): ${size}px`;
-  }, "");
-
-  sizes.push(`${width}px`);
+  srcSet.push({ src: originalUrl, size: width });
 
   return {
-    srcSet: srcset.join(", "),
-    sizes: sizes.join(", "),
+    srcSet,
   };
 };
 
-export const damAssetToImage = (site = "default", data: RawImage) => {
-  if (!data) return undefined;
+interface ParsedImage {
+  url: string;
+  width: number;
+  height: number;
+  altText?: string;
+  caption?: string;
+  credit?: string;
+  srcSet?: Array<{ src: string; size: number }>;
+}
+
+export function damAssetToImage(site: string): undefined;
+export function damAssetToImage(site: string, data: RawImage): ParsedImage;
+export function damAssetToImage(site = "default", data?: RawImage) {
+  if (typeof data === "undefined" || data === null) return undefined;
 
   const { metadata, url, width, height } = data;
   const { directUrlPreview, directUrlOriginal } = url;
-  const { altText: alt, ...assetMetadata } =
-    getAssetMetadata(metadata, site) || {};
+  const { altText, ...assetMetadata } = getAssetMetadata(metadata, site) || {};
 
-  return {
-    src: directUrlPreview,
+  const image: ParsedImage = {
+    url: directUrlPreview,
     ...responsiveCantoSrc(
       directUrlPreview,
       directUrlOriginal,
@@ -62,7 +72,24 @@ export const damAssetToImage = (site = "default", data: RawImage) => {
     ),
     width: parseFloat(width),
     height: parseFloat(height),
-    alt,
+    altText,
     ...assetMetadata,
+  };
+
+  return image;
+}
+
+export const damAssetToAlternateSource = (site = "default", data: RawImage) => {
+  if (!data) return undefined;
+
+  const { width, height, url: src, srcSet } = damAssetToImage(site, data);
+
+  return {
+    src,
+    mediaCondition:
+      width > height ? "(orientation: landscape)" : "(orientation: portrait)",
+    width,
+    height,
+    srcSet,
   };
 };

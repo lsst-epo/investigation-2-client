@@ -1,26 +1,37 @@
-"use client";
 import { FunctionComponent } from "react";
 import { graphql, useFragment, FragmentType } from "@/gql/public-schema";
-import { useTranslation } from "react-i18next";
-import withModal from "@/components/hoc/withModal/withModal";
+import { useTranslation } from "@/lib/i18n";
+import Picture from "@rubin-epo/epo-react-lib/Picture";
 import { BaseContentBlockProps } from "@/components/shapes";
+import { damAssetToImage, damAssetToAlternateSource } from "@/helpers/assets";
+import { RawImage } from "@/types/image";
 import { captionShaper } from "@/helpers";
-import { damAssetToImage } from "@/helpers/assets";
-import * as Styled from "./styles";
+import PopoutFigure from "@/components/layout/PopoutFigure";
 
 const Fragment = graphql(`
   fragment ImageBlock on contentBlocks_image_BlockType {
     id
     caption
     layout
-    image {
+    desktopImage: image {
       url {
         directUrlPreview
         directUrlOriginal
-        PNG
-        HighJPG
-        LowJPG
-        preview
+      }
+      width
+      height
+      metadata: additional {
+        AltTextEN
+        AltTextES
+        CaptionEN
+        CaptionES
+        Credit
+      }
+    }
+    mobileImage {
+      url {
+        directUrlPreview
+        directUrlOriginal
       }
       width
       height
@@ -43,64 +54,52 @@ interface ImageContentBlockProps extends BaseContentBlockProps {
 /**
  * Image content block with modal and two layout options.
  */
-const ImageContentBlock: FunctionComponent<ImageContentBlockProps> = ({
+const ImageContentBlock: FunctionComponent<ImageContentBlockProps> = async ({
   data,
   site,
   isOpen,
-  openModal,
+  locale,
 }) => {
-  const { t } = useTranslation();
-  const { layout, image: rawImage, caption = "" } = useFragment(Fragment, data);
+  const { t } = await useTranslation(locale, "translation");
+  const {
+    layout,
+    desktopImage,
+    mobileImage,
+    caption = "",
+  } = useFragment(Fragment, data);
   const finalLayout = isOpen ? "vertical" : layout;
 
-  const image = damAssetToImage(site, rawImage[0]);
+  if (desktopImage === null || desktopImage[0] === null) return;
+
+  const image = damAssetToImage(site, desktopImage[0] as RawImage);
+  const sources = mobileImage?.map(
+    (image) => image && damAssetToAlternateSource(site, image)
+  );
 
   if (!image) return null;
 
-  const {
-    caption: fallback,
-    credit,
-    width,
-    height,
-    ...imageAttributes
-  } = image;
+  const { caption: fallback, credit, width, height } = image;
 
   return (
-    <Styled.Container
-      data-modal-open={isOpen}
-      className="content-block"
-      style={{
-        "--image-aspect-ratio": width / height,
-        "--image-width": `${width}px`,
-      }}
+    <PopoutFigure
+      layout={finalLayout}
+      caption={captionShaper({
+        caption,
+        fallback,
+        credit:
+          credit &&
+          ` ${t("translation:image.credit", {
+            credit,
+            interpolation: { escapeValue: false },
+          })}`,
+      })}
+      {...{ width, height, sources }}
     >
-      <Styled.Figure
-        caption={captionShaper({
-          caption,
-          fallback,
-          credit:
-            credit &&
-            ` ${t("translation:image.credit", {
-              credit,
-              interpolation: { escapeValue: false },
-            })}`,
-        })}
-        layout={finalLayout}
-        withBackground={!isOpen}
-      >
-        <Styled.Image
-          {...{ ...imageAttributes, width, height }}
-          decoding="async"
-          loading="lazy"
-        />
-        {!isOpen && (
-          <Styled.ExpandContract onToggle={openModal} isOpen={isOpen} />
-        )}
-      </Styled.Figure>
-    </Styled.Container>
+      <Picture {...{ image, sources }} />
+    </PopoutFigure>
   );
 };
 
 ImageContentBlock.displayName = "ContentBlock.Image";
 
-export default withModal(ImageContentBlock);
+export default ImageContentBlock;
