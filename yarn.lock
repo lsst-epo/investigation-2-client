@@ -3160,6 +3160,18 @@
     "@swc/helpers" "^0.5.0"
     clsx "^2.0.0"
 
+"@react-input/core@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@react-input/core/-/core-2.0.2.tgz#c7094c5ab955e740d4c34777688aff54785024a1"
+  integrity sha512-xLLBueYFbant9308uv3cIJQz5NYSixeGspjP3Nt6jogRHTcHYMRmlVFUuSzQiP8Z8/5BdnPkudRSsN0/AJ1fbw==
+
+"@react-input/number-format@^2.0.3":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@react-input/number-format/-/number-format-2.0.3.tgz#7b7f1fef6a884b1c3f508e9fd437a5c192095de1"
+  integrity sha512-rgvp32USB+g+ZuQv+TJJHmM+2Te+hn88uMBKvLbY965gUMfYS6hONTcw0UzwUnm5IRWyEkiTyZQmd/1648fw8w==
+  dependencies:
+    "@react-input/core" "^2.0.2"
+
 "@react-oauth/google@^0.11.0":
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/@react-oauth/google/-/google-0.11.1.tgz#f937c8d02bd37e3a6be7713b8212e9b9b9b3f914"

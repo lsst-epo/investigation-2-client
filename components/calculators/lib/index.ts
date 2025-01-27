@@ -1,4 +1,5 @@
 import { fallbackLng } from "@/lib/i18n/settings";
+import { NumberFormat } from "@react-input/number-format";
 import isNil from "lodash/isNil";
 import {
   type Calculator,
@@ -10,13 +11,14 @@ import LaTeXComposer from "./latex";
 import Config from "./config";
 
 const storedToNumericValues = (
-  values: StoredCalculatorValues
+  values: StoredCalculatorValues,
+  locale: string
 ): NumericCalculatorValues => {
+  const numberFormat = new NumberFormat({ locales: locale });
   const numericValues: NumericCalculatorValues = {};
 
   Object.keys(values).forEach((key) => {
     const value = values[key];
-    numericValues[key] = isNil(value) ? undefined : parseFloat(value);
 
     if (isNil(value)) {
       numericValues[key] = undefined;
@@ -28,14 +30,14 @@ const storedToNumericValues = (
       return;
     }
 
-    numericValues[key] = parseFloat(value);
+    numericValues[key] = parseFloat(numberFormat.unformat(value));
   });
 
   return numericValues;
 };
 
 const Calculator: Calculator = (equation, value, locale = fallbackLng) => {
-  const variables = storedToNumericValues(value);
+  const variables = storedToNumericValues(value, locale);
   const config = Config[equation];
 
   if (typeof config === "undefined") {
